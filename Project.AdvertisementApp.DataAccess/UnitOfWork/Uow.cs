@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Project.AdvertisementApp.DataAccess.UnitOfWork
 {
-    public class Uow
+    public class Uow : IUow
     {
         private readonly AdvertisementContext _context;
 
