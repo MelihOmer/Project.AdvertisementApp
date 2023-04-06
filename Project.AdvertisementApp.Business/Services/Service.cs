@@ -40,6 +40,7 @@ namespace Project.AdvertisementApp.Business.Services
             {
                 var createdEntity = _mapper.Map<T>(dto);
                 await _uow.GetRepository<T>().CreateAsync(createdEntity);
+                await _uow.SaveChangeAsync();
                 return new Response<CreateDto>(ResponseType.Success, dto);
             }
             return new Response<CreateDto>(dto, errors: result.ConvertCustomValidationError ());
@@ -69,6 +70,7 @@ namespace Project.AdvertisementApp.Business.Services
             if (data == null)
                 return new Response<IDto>(ResponseType.NotFound, $"{id} Nolu Kayıt Bulunamadı");
             _uow.GetRepository<T>().Remove(data);
+            await _uow.SaveChangeAsync();
             return new Response(ResponseType.Success);
         }
 
@@ -84,6 +86,7 @@ namespace Project.AdvertisementApp.Business.Services
                 }
                 var data = _mapper.Map<T>(dto);
                 _uow.GetRepository<T>().Update(data, unchangedData);
+                await _uow.SaveChangeAsync();
                 return new Response<UpdateDto>(ResponseType.Success, dto);
             }
             return new Response<UpdateDto>(dto, result.ConvertCustomValidationError());

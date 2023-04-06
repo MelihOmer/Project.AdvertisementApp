@@ -1,0 +1,33 @@
+﻿@model AppUserLoginDto
+<div class="dummy mt-xxl-5 row "></div>
+<div class="dummy mt-xxl-5 row "></div>
+
+<div class="mt-4 container px-lg-5">
+    <form asp-action="SignIn" asp-controller="Account" method="post" class="p-4 w-75 mx-auto">
+
+
+
+        <div class="mb-3">
+            <label>Kullanıcı Adınız :</label>
+            <input asp-for="@Model.UserName" class="form-control" />
+        </div>
+        
+
+        <div class="mb-3">
+            <label>Şifreniz :</label>
+            <input asp-for="@Model.Password" type="password" class="form-control " />
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" asp-for="@Model.RememberMe" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Beni Hatırla
+            </label>
+        </div>
+
+        <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-primary">Giriş Yap</button>
+        </div>
+
+        <div class="text-danger lead" asp-validation-summary="All"></div>
+    </form>
+</div>

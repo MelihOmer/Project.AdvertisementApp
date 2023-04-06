@@ -21,25 +21,32 @@ namespace Project.AdvertisementApp.Business.DependencyResolvers.Microsoft
             opt.UseSqlServer(configuration.GetConnectionString("local")));
 
 
-            var mapperConfig = new MapperConfiguration(opt =>
-            {
-                opt.AddProfile(new ProvidedServiceProfile());
-                opt.AddProfile(new AdvertisementProfile());
-            });
+            
 
-            var mapper = mapperConfig.CreateMapper();
+            
+            //Validator Class
 
-            services.AddSingleton(mapper);
-
-            services.AddScoped<IUow, Uow>();
             services.AddTransient<IValidator<ProvidedServiceCreateDto>, ProvidedServiceCreateDtoValidator>();
             services.AddTransient<IValidator<ProvidedServiceUpdateDto>, ProvidedServiceUpdateDtoValidator>();
+
             services.AddTransient<IValidator<AdvertisementCreateDto>, AdvertisementCreateDtoValidator>();
             services.AddTransient<IValidator<AdvertisementUpdateDto>, AdvertisementUpdateDtoValidator>();
 
+            services.AddTransient<IValidator<AppUserCreateDto>, AppUserCreateDtoValidator>();
+            services.AddTransient<IValidator<AppUserUpdateDto>, AppUserUpdateDtoValidator>();
+            services.AddTransient<IValidator<AppUserLoginDto>, AppUserLoginDtoValidator>();
+
+            services.AddTransient<IValidator<GenderUpdateDto>, GenderUpdateDtoValidator>();
+            services.AddTransient<IValidator<GenderCreateDto>, GenderCreateDtoValidator>();
+            
+
+            services.AddScoped<IUow, Uow>();
             services.AddScoped<IProvidedServiceService,ProvidedServiceService>();
             services.AddScoped<IAdvertisementService,AdvertisementService>();
+            services.AddScoped<IAppUserService,AppUserService>();
+            services.AddScoped<IGenderService,GenderService>();
 
         }
+        
     }
 }
