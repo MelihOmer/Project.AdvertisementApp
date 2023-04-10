@@ -1,0 +1,64 @@
+﻿@model AdvertisementAppUserCreateModel
+<div class="dummy mt-xxl-5 row "></div>
+<div class="dummy mt-xxl-5 row "></div>
+
+
+
+<form asp-action="Send" asp-controller="Advertisement" class="p-4 w-75 mx-auto" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="@Model.AdvertisementId" />
+    <input type="hidden" asp-for="@Model.AppUserId" />
+    @if (ViewBag.GenderId == (int)GenderType.Erkek)
+    {
+        <div class="mb-3">
+            <label>Askerlik Durumu :</label>
+            <select onchange="setInputVisibility()"  id="MilitaryStatusId" asp-for="@Model.MilitaryStatusId" asp-items="@ViewBag.MilitaryStatusList" class="form-select-sm">
+            </select>
+        </div>
+        <div class="mb-3" style="display:none" id="DateDiv">
+            <label>Tecil Tarihi :</label>
+            <input type="date" asp-for="@Model.EndDate" class="form-control" />
+        </div>
+    }
+    else
+    {
+        <input type="hidden" asp-for="@Model.MilitaryStatusId" value="@((int)MilitaryStatusType.Muaf)"  />
+    }
+    <div class="mb-3">
+        <label>İş Deneyimi :</label>
+        <input type="number" asp-for="@Model.WorkExperience" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Cv :</label>
+        <input type="file" asp-for="@Model.CvFile" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+    </div>
+    <div asp-validation-summary="All" class="text-danger lead"></div>
+
+</form>
+
+
+@section script {
+    <script type="text/javascript">
+        setInputVisibility();
+        function setInputVisibility() {
+            //console.log(document.getElementById("MilitaryStatusId").value);
+
+            var selectItem = document.getElementById("MilitaryStatusId");
+            var selectIndex = selectItem.value;
+
+            var dateDivElement = document.getElementById("DateDiv");
+
+            if (selectIndex == 2) {
+                dateDivElement.style.display = "block"
+            }
+            else {
+                dateDivElement.style.display = "none"
+            }
+        }
+
+    </script>
+
+}
